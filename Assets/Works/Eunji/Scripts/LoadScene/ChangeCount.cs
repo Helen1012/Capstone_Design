@@ -53,7 +53,7 @@ public class ChangeCount : MonoBehaviour
         }
         else if(checkHandAction.GetComponent<Renderer>().material.color != mainColor)
             isPresentColorSameAsCurrentColor = false;
-        else if (count < 1)
+        else if(count < 1)
             Invoke("LoadNextScene", 2.0f);
     }
 

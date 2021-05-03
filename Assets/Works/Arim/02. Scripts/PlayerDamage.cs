@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class PlayerDamage : MonoBehaviour
 {
     private const string bulletTag = "TmpBullet";
-    private float initHp = 1000000.0f;   /* 잠시 수정 */
+    private float initHp = 150.0f;   /* 잠시 수정 */
+
     private Color currColor;
     private readonly Color initColor = new Vector4(0, 1.0f, 0.0f, 1.0f);
     public float currHP;
@@ -40,6 +41,8 @@ public class PlayerDamage : MonoBehaviour
     {
         if(isUpdate)
             HpItem();
+
+        Debug.Log("currHP: " + currHP);
     }
 
     private void OnTriggerEnter(Collider coll)
