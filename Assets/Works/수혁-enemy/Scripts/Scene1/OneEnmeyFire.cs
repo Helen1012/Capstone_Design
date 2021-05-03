@@ -14,7 +14,7 @@ public class OneEnmeyFire : MonoBehaviour
     private Transform enemyTr;
 
     private readonly int hashFire = Animator.StringToHash("isFire");
-   // private readonly int hashReload = Animator.StringToHash("Reload");
+
 
     private float nextFire = 0.1f;
     private readonly float fireRate = 0.3f;
@@ -23,7 +23,7 @@ public class OneEnmeyFire : MonoBehaviour
     private readonly float reloadTime = 2.0f;
     private readonly int maxBullet = 10;
     private int currBullet = 10;
-    private bool isReload = false;
+
     private WaitForSeconds wsReload;
 
 
@@ -47,7 +47,7 @@ public class OneEnmeyFire : MonoBehaviour
     }
 
     void Update(){
-        if(!isReload && isFire){
+        if( isFire){
             if(Time.time >= nextFire){
                 animator.SetTrigger(hashFire);
                 Fire();

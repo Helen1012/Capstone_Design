@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SC2PlayerDamage : MonoBehaviour
 {
- 
+
     public float initHp = 200.0f;
+
+    //private float initHp = 11200.0f;
     private Color currColor;
     private readonly Color initColor = new Vector4(0, 1.0f, 0.0f, 1.0f);
-    public float currHP;
+    //public float currHP;
+
+    private float currHP;
 
     public Image bloodScreen;
     public Image hpBar;
@@ -17,38 +21,65 @@ public class SC2PlayerDamage : MonoBehaviour
     public bool hpitem = false;
     public GameObject HPItem;
     public float destroyTime = 10f;
+
+    private string EnemyTag = "Enemy";
     //public delegate void PlayerDieHandler();
     //public static event PlayerDieHandler OnPlayerDie;
 
 
 
-    private void OnCollisionEnter(Collision collision){
-        if(collision.transform.tag =="SC2EnemyBullet" || collision.transform.tag =="Enemy"){
-            Debug.Log(collision.transform.tag);
-            Debug.Log(currHP);
-            StartCoroutine(ShowBloodScreen());
-            currHP -= 5.0f;
-            DisPlayHpbar();
-            if (currHP <= 0.0f) //플레이어 죽었을때
-            {
-                PlayerDie();
-            }
+    /* 총 공격 */
+    // private void OnCollisionEnter(Collision collision)
+    // {
+    //     if (collision.transform.tag == "SC2EnemyBullet")
+    //     {
+    //         StartCoroutine(ShowBloodScreen());
+    //         currHP -= 5.0f;
+    //         DisPlayHpbar();
+    //         if (currHP <= 0.0f) //플레이어 죽었을때
+    //         {
+    //             PlayerDie();
+    //             FindObjectOfType<GameManager>().playerLose();
+    //         }
+    //     }
+    // }
+
+    public void AttackedByBullet()
+    {
+        StartCoroutine(ShowBloodScreen());
+        currHP -= 5.0f;
+        DisPlayHpbar();
+        if (currHP <= 0.0f) //플레이어 죽었을때
+        {
+            PlayerDie();
+            FindObjectOfType<GameManager>().playerLose();
         }
     }
 
-        public void AttackedByMelee(){
-            StartCoroutine(ShowBloodScreen());
-            currHP -= 5.0f;
-            Debug.Log(currHP);
-            DisPlayHpbar();
-            if (currHP <= 0.0f) //플레이어 죽었을때
-            {
-                PlayerDie();
-            }
+
+    /* 근접 공격 */
+    public void AttackedByMelee()
+    {
+        StartCoroutine(ShowBloodScreen());
+        currHP -= 5.0f;
+        DisPlayHpbar();
+        if (currHP <= 0.0f) //플레이어 죽었을때
+        {
+            PlayerDie();
+            FindObjectOfType<GameManager>().playerLose();
+        }
     }
+
     private void PlayerDie()
     {
         Debug.Log("Player Die!!!");
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(EnemyTag);
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].SendMessage("OnPlayerDie", SendMessageOptions.DontRequireReceiver);
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -67,7 +98,7 @@ public class SC2PlayerDamage : MonoBehaviour
 
     IEnumerator ShowBloodScreen()
     {
-        bloodScreen.color = new Color(1, 0, 0,UnityEngine.Random.Range(0.2f, 0.3f));
+        bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.2f, 0.3f));
         yield return new WaitForSeconds(0.1f);
         bloodScreen.color = Color.clear;
     }
@@ -84,7 +115,7 @@ public class SC2PlayerDamage : MonoBehaviour
     public void Heal()
     {
         Debug.Log("Heal~~~~~~~~~~~~~~");
-        currHP += 50f;
+        currHP += 100f;
         AudioSource sound = GetComponent<AudioSource>();
         HPItem.SetActive(false);
         Destroy(HPItem);
@@ -98,7 +129,7 @@ public class SC2PlayerDamage : MonoBehaviour
     }
     void HpItem()
     {
-        if ((hpitem == false) && (currHP == 50))
+        if ((hpitem == false) && (currHP <= 50))
         {
             HPItem.SetActive(true);
             hpitem = true;
@@ -106,4 +137,3 @@ public class SC2PlayerDamage : MonoBehaviour
         }
     }
 }
-

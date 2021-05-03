@@ -8,7 +8,7 @@ public class OneMoveAgent : MonoBehaviour
     private OneEneyAI oneEneyAI;
     private NavMeshAgent agent;
 
-    private readonly float traceSpeed = 4.0f;
+    private readonly float traceSpeed = 6.0f;
     private int idx;
 
     private float damping = 1.0f;
@@ -41,13 +41,14 @@ public class OneMoveAgent : MonoBehaviour
         oneEneyAI.state = OneEneyAI.State.MOVE;
         agent.isStopped = false;
     }
-    // public void Stop(){
-    //     agent.isStopped = true;
-
-    //     // 바로 정지하기 위해 속도 0
-    //     agent.velocity = Vector3.zero;
+    public void Stop(){
+        agent.isStopped = true;
+        agent.updatePosition = false;
+        agent.updateRotation = false;
+        // 바로 정지하기 위해 속도 0
+        agent.velocity = Vector3.zero;
       
-    // }
+    }
 
     // Update is called once per frame
     void Update()

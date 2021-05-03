@@ -21,11 +21,15 @@ public class EnemyDamage : MonoBehaviour
         if(other.tag=="Bullet"){
         curHp-=25;
         hpbar.rectTransform.localScale = new Vector3(((float)curHp/(float)maxHp),1f,1f);
-        Debug.Log(oneEneyAI);
-        if(curHp ==0){
+        if(curHp <=0){
             oneEneyAI.state = OneEneyAI.State.DIE;
-            Debug.Log(oneEneyAI.state);
         }
-        }
+    }
+    }
+
+    private void GrenadeAttack(){
+        curHp-=50;
+        hpbar.rectTransform.localScale = new Vector3(((float)curHp/(float)maxHp),1f,1f);
+        oneEneyAI.state = OneEneyAI.State.DIE;
     }
 }

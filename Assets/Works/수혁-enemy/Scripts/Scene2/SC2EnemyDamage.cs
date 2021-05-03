@@ -5,7 +5,7 @@ public class SC2EnemyDamage : MonoBehaviour
     private const string bulletTag = "Bullet";
     private float hp = 100.0f;
 
-    private float initHP = 100.0f;
+    //private float initHP = 100.0f;
     private GameObject bloodEffect;
 
     // Start is called before the first frame update
@@ -27,7 +27,13 @@ public class SC2EnemyDamage : MonoBehaviour
         }
         
     }
-
+    
+    private void GrenadeAttack(){
+        hp-=100;
+        GetComponent<EnemyAI>().state = EnemyAI.State.DIE;
+        this.SendMessage("UpdateAfterReceiveGranadeAttack");
+        
+    }
     
     private void ShowBloodEffect(Collision coll){
         Vector3 pos = coll.contacts[0].point;

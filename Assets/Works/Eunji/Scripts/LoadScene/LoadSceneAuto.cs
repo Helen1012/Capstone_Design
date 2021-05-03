@@ -33,6 +33,12 @@ public class LoadSceneAuto : MonoBehaviour
         StartCoroutine(LoadMenuTimer(index));
     }
 
+    public void LoadMenuIfNotConnected(){
+        // SceneManager.LoadScene("Menu");
+        // SceneManager.LoadScene(1);
+        StartCoroutine(LoadMenuIfNotConnectedTimer());
+    }
+
     public void LoadNextScene()
     {
         int index = SceneManager.GetActiveScene().buildIndex;
@@ -69,6 +75,12 @@ public class LoadSceneAuto : MonoBehaviour
         SceneManager.LoadScene(index + 1);
     }
 
+    IEnumerator LoadMenuIfNotConnectedTimer()
+    {
+        yield return null;
+        SceneManager.LoadScene(1);
+    }
+
     IEnumerator LoadNextSceneTimer(int index)
     {
         yield return new WaitForSeconds(2.0f);
@@ -102,8 +114,9 @@ public class LoadSceneAuto : MonoBehaviour
 
         UnityEditor.EditorApplication.isPlaying = false;
 #else
+
         System.Diagnostics.Process.GetCurrentProcess().Kill();
-        Application.Quit();
+        // Application.Quit();
 #endif
     }
     

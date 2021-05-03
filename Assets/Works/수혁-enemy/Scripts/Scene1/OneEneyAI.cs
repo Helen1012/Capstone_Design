@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,6 +29,7 @@ public class OneEneyAI : MonoBehaviour
     private readonly int hashDieIdx = Animator.StringToHash("SC1DieIdx");
 
     private readonly int hashDie = Animator.StringToHash("SC1Die");
+    private readonly int hashDance = Animator.StringToHash("isDance");
     private OneMoveAgent moveAgent;
     private readonly float damping = 10.0f;
     private void Awake(){
@@ -58,7 +59,6 @@ public class OneEneyAI : MonoBehaviour
                     enmeyFire.isFire = false;
                     //moveAgent.patrolling = true;
                     animator.SetBool(hashMove, true);
-
                     break;
 
                 case State.ATTACK:
@@ -68,8 +68,8 @@ public class OneEneyAI : MonoBehaviour
                     break;
 
                 case State.DIE:
-             
                     this.gameObject.tag = "Untagged";
+                    moveAgent.Stop();
                     enmeyFire.isFire = false;
                     isDie = true;
                     int ran = Random.Range(1,5);
@@ -78,8 +78,18 @@ public class OneEneyAI : MonoBehaviour
                     GetComponent<CapsuleCollider>().enabled = false;
                     Destroy(gameObject,DieDelayTime);
                     break;
+                
+  
             }
         }
+    }
+
+    public void OnPlayerDie(){
+        moveAgent.Stop();
+        enmeyFire.isFire = false;
+        StopAllCoroutines();
+
+        animator.SetTrigger(hashDance);
     }
     void Update(){
 

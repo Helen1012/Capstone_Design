@@ -13,6 +13,8 @@ public class CTTDemoManager : MonoBehaviour {
     [Header("SETTINGS")]
     public int currentPanelIndex = 0;
 
+    public AudioSource audiosource;
+
     // [Header("PANEL ANIMS")]
     private string panelFadeIn = "Panel Open";
     private string panelFadeOut = "Panel Close";
@@ -24,11 +26,17 @@ public class CTTDemoManager : MonoBehaviour {
     private Animator currentPanelAnimator;
     private Animator styleAnimator;
 
+    void Start(){
+        currentPanel = panels[currentPanelIndex];
+        currentPanel.SetActive(false);
+    }
+
     public void TitlePlay()
     {
-        currentPanel = panels[currentPanelIndex];
+        currentPanel.SetActive(true);
         currentPanelAnimator = currentPanel.GetComponent<Animator>();
         currentPanelAnimator.Play(panelFadeIn);
+        StartCoroutine(audiosourcePlay());
     }
 
     public void PanelAnim(int newPanel)
@@ -47,5 +55,10 @@ public class CTTDemoManager : MonoBehaviour {
             styleAnimator = currentPanel.GetComponent<Animator>();
             styleAnimator.Play(styleExpand);
         }    
+    }
+
+    IEnumerator audiosourcePlay(){
+        yield return new WaitForSecondsRealtime(0.3f);
+        audiosource.Play();
     }
 }

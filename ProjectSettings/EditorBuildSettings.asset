@@ -12,14 +12,14 @@ EditorBuildSettings:
     path: Assets/Works/Eunji/Scenes/Menu.unity
     guid: 19ccf46f823d0e448a0f72a3850beb6b
   - enabled: 1
-    path: Assets/Works/Eunji/Scenes/Level.unity
-    guid: 6178aca985494bf49a92cdcf3dbf9ba7
-  - enabled: 1
     path: Assets/Works/Eunji/Scenes/Loading.unity
     guid: 74cc735d655b50746b3842087858cf66
   - enabled: 1
     path: Assets/Works/Eunji/Scenes/Loading2.unity
     guid: b07599197fea4ad4ea0a4840e28a1b26
+  - enabled: 1
+    path: Assets/Works/Eunji/Scenes/Level.unity
+    guid: 6178aca985494bf49a92cdcf3dbf9ba7
   - enabled: 1
     path: Assets/Works/Eunji/Scenes/Tutorial_01.unity
     guid: fbcb9e27ace7c92469a56724a90de48f

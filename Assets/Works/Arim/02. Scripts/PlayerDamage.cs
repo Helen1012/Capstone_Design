@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerDamage : MonoBehaviour
 {
     private const string bulletTag = "TmpBullet";
-    private float initHp = 1000000.0f;   /* 잠시 수정 */
+    private float initHp = 200;   /* 잠시 수정 */
     private Color currColor;
     private readonly Color initColor = new Vector4(0, 1.0f, 0.0f, 1.0f);
     public float currHP;
@@ -23,11 +23,16 @@ public class PlayerDamage : MonoBehaviour
 
     private bool isUpdate = false;
 
+    private OneEneyAI oneEneyAI;
+
+    private String EnemyTag = "Enemy";
     //public delegate void PlayerDieHandler();
     //public static event PlayerDieHandler OnPlayerDie;
 
     void Start()
-    {
+    {   
+
+
         currHP = initHp;
 
         hpBar.color = initColor;
@@ -38,7 +43,6 @@ public class PlayerDamage : MonoBehaviour
 
     void Update()
     {
-        if(isUpdate)
             HpItem();
     }
 
@@ -51,8 +55,9 @@ public class PlayerDamage : MonoBehaviour
             DisPlayHpbar();
 
             if (currHP <= 0.0f) //플레이어 죽었을때
-            {
-                isUpdate = false;
+            {   
+                PlayerDie();
+                coll.enabled = false;
                 FindObjectOfType<GameManager>().playerLose();
             }
         }
@@ -61,6 +66,12 @@ public class PlayerDamage : MonoBehaviour
     private void PlayerDie()
     {
         Debug.Log("Player Die!!!");
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(EnemyTag);
+
+        for(int i=0; i<enemies.Length; i++){
+            enemies[i].SendMessage("OnPlayerDie", SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     IEnumerator ShowBloodScreen()
@@ -97,7 +108,7 @@ public class PlayerDamage : MonoBehaviour
     public void Heal()
     {
         Debug.Log("Heal~~~~~~~~~~~~~~");
-        currHP += 50f;
+        currHP += 100f;
         AudioSource sound = GetComponent<AudioSource>();
         sound.Play();
 

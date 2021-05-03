@@ -37,11 +37,14 @@ public class EnemyFire : MonoBehaviour
 
     public MeshRenderer muzzleFlash;
 
+    private SC2PlayerDamage playerDamage;
+
 
 
     // Start is called before the first frame update
     void Start()
     {   
+        playerDamage = GameObject.Find("Handgun_01_FPSController").GetComponent<SC2PlayerDamage>();
         muzzleFlash.enabled = false;
         playerTr = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         enemyTr = GetComponent<Transform>();
@@ -57,7 +60,8 @@ public class EnemyFire : MonoBehaviour
         if(!isReload && isFire){
             if(Time.time >= nextFire){
                 Fire();
-                nextFire = Time.time + fireRate + Random.Range(0.0f,1.0f);  // 공속딜레이
+                playerDamage.AttackedByBullet();
+                nextFire = Time.time + fireRate + 2f;  // 공속딜레이
             }
             
         Quaternion rot = Quaternion.LookRotation(playerTr.position - enemyTr.position);

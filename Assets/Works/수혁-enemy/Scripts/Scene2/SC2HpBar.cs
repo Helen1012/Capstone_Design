@@ -27,5 +27,15 @@ public class SC2HpBar : MonoBehaviour
         }
         hpbar.rectTransform.localScale = new Vector3((float)curHp/(float)maxHp,1f,1f);
     }
+
+        public void UpdateAfterReceiveGranadeAttack(){
+            curHp-=100.0f;
+
+
+            GameObject hp = gameObject.transform.Find("HPBarPos").gameObject;
+            hp.SetActive(false);
+
+            hpbar.rectTransform.localScale = new Vector3((float)curHp/(float)maxHp,1f,1f);
+    }
  
 }

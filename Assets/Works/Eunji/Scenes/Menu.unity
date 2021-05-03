@@ -458,12 +458,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axes: 0
-  sensitivityX: 15
-  sensitivityY: 15
-  minimumX: -360
-  maximumX: 360
-  minimumY: -60
-  maximumY: 60
+  sensitivityX: 10
+  sensitivityY: 10
+  minimumX: -30
+  maximumX: 30
+  minimumY: -30
+  maximumY: 30
   frameCounter: 20
 --- !u!114 &529957099
 MonoBehaviour:
@@ -1586,4 +1586,7 @@ MonoBehaviour:
   isShoot: 0
   isGrenade: 0
   isLoading: 0
-  isPlayerWin: 0
+  isPlayerWininFirst: 0
+  isPlayerWininSecond: 0
+  WinSound: {fileID: 0}
+  LoseSound: {fileID: 0}

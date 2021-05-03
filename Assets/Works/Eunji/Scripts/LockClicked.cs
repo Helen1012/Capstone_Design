@@ -3,6 +3,9 @@
 public class LockClicked : MonoBehaviour
 {
     public void click(){
-        GetComponentInChildren<PlayAnimInLock>().playAnim();
+        if(FindObjectOfType<GameManager>().isPlayerWininFirst)
+            GetComponent<Restart>().playShow();
+        else
+            GetComponentInChildren<PlayAnimInLock>().playAnim();
     }
 }
