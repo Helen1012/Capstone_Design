@@ -118,12 +118,17 @@ public class GameManager : MonoBehaviour
                 fingers = hand.Fingers; // 현재 손가락의 개수
 
                 int _extendedFingers = getExtendedFingers();    // 함수를 호출하여 펼쳐진 손가락의 개수를 확인한다
+                Debug.Log("_extendedFingers: " + _extendedFingers);
 
                 isShoot = false; isGrenade = false; isLoading = false;
 
                 // [Conditions to 'Shoot']
                 //  1. Two straight fingers
                 //  2. Hands moving from top to bottom
+
+                // Debug.Log("x : " + (handPalmPosition.x - prehandPalmPosition.x));
+                // Debug.Log("y : " + (handPalmPosition.y - prehandPalmPosition.y));
+                //Debug.Log("z : " + (handPalmPosition.z - prehandPalmPosition.z));
 
                 if (_extendedFingers == 2 && System.Math.Abs(handPalmPosition.y - prehandPalmPosition.y) > 5)
                 {
@@ -132,7 +137,8 @@ public class GameManager : MonoBehaviour
                 }
                 // [Condition for changing weapons]
                 //  1. Hands moving from side to side (swipe)
-                else if (System.Math.Abs(handPalmPosition.x - prehandPalmPosition.x) > 10)
+                else if (System.Math.Abs(handPalmPosition.x - prehandPalmPosition.x) > 10
+                    && System.Math.Abs(handPalmPosition.y - prehandPalmPosition.y) > 3)
                 {
                     checkHandCube.GetComponent<MeshRenderer>().material.color = Color.green;
                     isGrenade = true;
